@@ -25,7 +25,7 @@ export default function Home() {
             GitHub
           </a>
           <a
-            href="/resume.pdf"
+            href="/Portfolio/resume.pdf"
             target="_blank"
             rel="noreferrer"
             className="text-sm text-zinc-400 border border-zinc-700 rounded px-4 py-2 hover:text-zinc-200 hover:border-zinc-500 transition-colors"
