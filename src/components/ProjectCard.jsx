@@ -13,6 +13,12 @@ export default function ProjectCard({ project }) {
         ))}
       </ul>
       <div className="flex gap-3 pt-1">
+        <Link
+          to={`/projects/${project.id}`}
+          className="text-xs text-zinc-400 border border-zinc-700 rounded px-3 py-1.5 hover:text-zinc-200 hover:border-zinc-500 transition-colors"
+        >
+          Read More
+        </Link>
         <a
           href={project.github}
           target="_blank"
@@ -31,12 +37,6 @@ export default function ProjectCard({ project }) {
             Live Demo
           </a>
         )}
-        <Link
-          to={`/projects/${project.id}`}
-          className="text-xs text-zinc-400 border border-zinc-700 rounded px-3 py-1.5 hover:text-zinc-200 hover:border-zinc-500 transition-colors"
-        >
-          Read More
-        </Link>
       </div>
     </div>
   );
