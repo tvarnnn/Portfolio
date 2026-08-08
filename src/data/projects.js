@@ -12,8 +12,8 @@ export const projects = [
     problem:
       "LLMs can generate convincing but incorrect business insights when used for product research. Amazon sellers rely on noisy, unstructured data like reviews, making it easy to draw false conclusions without grounded analysis.",
     approach:
-      "Built a structured facts pipeline that ingests product metrics (CSV), reviews (TXT), and optional visual inputs into a unified context block. The system restricts the LLM to reasoning only over this evidence and applies guardrails to prevent unsupported claims, enforce schema consistency, and validate outputs. This turns the system into a constrained decision engine rather than a free-form generator.",
-    techStack: ["Python", "Claude API", "GROQ API", "LangChain", "FastAPI", "React"],
+      "Built a structured facts pipeline that ingests product metrics (CSV), reviews (TXT), and optional visual inputs into a unified context block. The system restricts the LLM to reasoning only over this evidence and applies guardrails to prevent unsupported claims, enforce schema consistency, and validate outputs. This turns the system into a constrained decision engine rather than a free-form generator, delivered as a Tkinter desktop research copilot with an interactive follow-up Q&A workflow.",
+    techStack: ["Python", "Claude API", "Groq API", "LangChain", "ChromaDB", "Sentence-Transformers", "PyTorch", "Tkinter"],
     github: "https://github.com/tvarnnn/FBA-LLM-GUI",
   },
   {
@@ -55,17 +55,17 @@ export const projects = [
     title: "NEXUS (CLI Agent)",
     bullets: [
       "LLM agent that dynamically discovers and executes tools over a local codebase.",
-      "Integrates multiple MCP servers (filesystem, search, RAG) into a unified tool interface.",
-      "Supports controlled execution modes (manual, confirmation, auto) for safe tool usage.",
+      "Integrates multiple MCP servers (official filesystem server, Tavily search, and a local RAG server) into a unified tool interface.",
+      "Supports controlled execution modes (manual, confirmation, auto) and uses fusion retrieval (query rewrites + reciprocal rank fusion) for the local RAG server.",
     ],
     overview:
       "A command-line coding assistant built as part of a team project, using an agent loop to reason over tasks, execute tools, and iteratively refine results.",
     problem:
       "Most coding assistants generate suggestions but lack the ability to interact with real environments. Bridging reasoning with tool execution requires structured orchestration and safe integration with external tools.",
     approach:
-      "Built an agent loop that alternates between reasoning, tool execution, and observation. Integrated multiple MCP servers (filesystem, external search, and local RAG) into a unified interface, enabling the agent to dynamically discover and invoke tools during execution while maintaining controlled interaction modes.",
-    techStack: ["Python", "Groq API", "Ollama", "MCP", "ChromaDB"],
-    github: "(coming soon)",
+      "Built an agent loop that alternates between reasoning, tool execution, and observation. Integrated multiple MCP servers — the official filesystem server, Tavily for external search, and a custom local RAG server backed by persistent ChromaDB — into a unified interface, enabling the agent to dynamically discover and invoke tools during execution while maintaining controlled interaction modes.",
+    techStack: ["Python", "Node.js", "Groq API", "Ollama", "MCP", "ChromaDB", "Tavily API"],
+    github: "https://github.com/David-Chan-Ho2/CLI-Coding-Assistant",
   },
   {
     id: "ml-visualizer",
@@ -99,7 +99,7 @@ export const projects = [
       "Many document-based AI tools are locked to proprietary platforms or lack flexibility for custom workflows. Users need a system that can ingest diverse sources, maintain context, and generate reliable outputs with traceable citations.",
     approach:
       "Built a modular RAG pipeline that parses documents, chunks text with overlap, and stores embeddings in a vector database. Queries trigger retrieval of relevant chunks, which are passed to the LLM with strict grounding instructions to prevent hallucination. The system supports artifact generation (reports, quizzes, transcripts) and organizes data through a notebook-based storage structure.",
-    techStack: ["Python", "LangChain", "ChromaDB", "Groq API", "Gradio"],
+    techStack: ["Python", "LangChain", "ChromaDB", "Sentence-Transformers", "Groq API", "Gradio"],
     github: "https://github.com/tvarnnn/NotebookLM",
     demo: "https://huggingface.co/spaces/Tvarn3/NotebookLM",
   },
@@ -117,7 +117,7 @@ export const projects = [
       "Raw listening data from APIs is difficult to interpret without aggregation and visualization. Understanding patterns like listening habits, artist discovery, and trends over time requires structured analysis.",
     approach:
       "Fetched and cached scrobble data from the Last.fm API, then built a pipeline to clean and aggregate listening behavior. Developed a modular Shiny dashboard with views for artists, albums, tracks, and historical trends, enabling interactive drill-down exploration.",
-    techStack: ["R", "Shiny", "dplyr", "ggplot2", "plotly", "Last.fm API"],
+    techStack: ["R", "Shiny", "shinydashboard", "dplyr", "ggplot2", "plotly", "Last.fm API"],
     github: "https://github.com/tvarnnn/Last.fm-Project",
   },
   {
@@ -138,5 +138,22 @@ export const projects = [
         "Implemented a DQN agent with replay buffers and a target network to stabilize training. Evaluated performance using train/test splits and net worth progression over time.",
     techStack: ["Python", "PyTorch (DQN)", "Gymnasium (environment)", "Pandas", "Matplotlib", "yFinance"],
     github: "https://github.com/tvarnnn/RL-Stock-Trader",
+  },
+  {
+    id: "mdm-advanced-rag",
+    title: "MDM Advanced RAG (Product Attribute Extraction)",
+    bullets: [
+      "Multi-agent LLM framework extracts structured product attributes (dimensions, electrical specs, materials, performance) from ~5,000 technical spec documents across PDF, DOCX, Excel, and HTML",
+      "Hybrid retrieval fuses dense (Qdrant ANN) and sparse (BM25) search via Reciprocal Rank Fusion, then reranks with a cross-encoder",
+      "Routes extracted records through a Streamlit data-steward review UI (approve/edit/reject) before exporting PIM-ready CSV/JSON",
+    ],
+    overview:
+      "An Advanced RAG pipeline built as part of a team project that ingests product specification documents in mixed formats and extracts structured technical attributes using a multi-agent LLM framework, routing results through a human review workflow before export to PIM/e-commerce systems.",
+    problem:
+      "Product technical specifications arrive in inconsistent formats across thousands of documents. Manually extracting structured attributes like dimensions, electrical ratings, and compliance certifications doesn't scale, and naive LLM extraction risks inaccurate or unverifiable output without a review step.",
+    approach:
+      "Built a multi-format ingestion pipeline (pdfplumber, python-docx, openpyxl, BeautifulSoup) that chunks and embeds documents into a Qdrant vector store. Implemented hybrid retrieval — dense vector search fused with BM25 sparse search via Reciprocal Rank Fusion, then reranked with a cross-encoder — plus LLM query decomposition for the RAG chain. A five-agent extraction framework (identifiers, dimensions, electrical, materials, performance) runs per document in parallel and merges results into a validated ProductRecord, using the instructor library to enforce structured Claude output. Extractions are checkpointed to SQLite for resumable batch processing across the full document set, then routed through a Streamlit review UI where data stewards approve, edit, or reject records before exporting flat CSV/JSON for PIM import.",
+    techStack: ["Python", "Claude API", "OpenAI (embeddings)", "Qdrant", "instructor", "rank-bm25", "flashrank", "Streamlit"],
+    github: "https://github.com/David-Chan-Ho2/MDM-Advanced-RAG",
   }
 ];
