@@ -1,159 +1,222 @@
+// Keep IDs stable for existing detail links. Featured order is set below.
+// Editorial detail-page copy now lives in caseStudies.js; detailSections below are earlier draft notes.
+import { portfolioImage } from './portfolioImages.js'
+
 export const projects = [
   {
-    id: "fba-llm",
-    title: "FBA-LLM",
-    bullets: [
-      "Constrains LLM outputs to structured product data to prevent hallucinated business decisions",
-      "Builds a unified facts pipeline from product metrics and customer reviews",
-      "Enforces guarded reasoning with validation to ensure all outputs are evidence-backed"
-  ],
-    overview:
-      "FBA-LLM is a decision support system for Amazon product research that prioritizes reliability over generation. Instead of allowing the model to freely speculate, the system constrains outputs to structured evidence derived from product metrics and customer reviews.",
-    problem:
-      "LLMs can generate convincing but incorrect business insights when used for product research. Amazon sellers rely on noisy, unstructured data like reviews, making it easy to draw false conclusions without grounded analysis.",
-    approach:
-      "Built a structured facts pipeline that ingests product metrics (CSV), reviews (TXT), and optional visual inputs into a unified context block. The system restricts the LLM to reasoning only over this evidence and applies guardrails to prevent unsupported claims, enforce schema consistency, and validate outputs. This turns the system into a constrained decision engine rather than a free-form generator, delivered as a Tkinter desktop research copilot with an interactive follow-up Q&A workflow.",
-    techStack: ["Python", "Claude API", "Groq API", "LangChain", "ChromaDB", "Sentence-Transformers", "PyTorch", "Tkinter"],
-    github: "https://github.com/tvarnnn/FBA-LLM-GUI",
+    id: 'lastfm-dashboard',
+    title: 'Last.fm Dashboard',
+    eyebrow: 'DATA VISUALIZATION / PERSONAL DATA',
+    // EDIT ME: HOMEPAGE HOOK + NOTES: keep these brief and in your own voice.
+    homeHook: 'I track basically everything I listen to. Eventually that turned into a dashboard for over 100,000 scrobbles.',
+    homeNotes: ['Years of listening, made explorable', 'Artist-heavy eras and a late-night listening bias'],
+    homeAction: 'Look through the listening history',
+    intro: 'apparently logging over 100,000 plays creates a pretty good dataset.',
+    why: 'I wanted to understand my listening history beyond a yearly recap.',
+    built: 'An R Shiny dashboard for exploring artist, album, track, and time-based listening trends from Last.fm history.',
+    detail: 'The project cleans and aggregates scrobbles, then turns them into interactive views of listening patterns.',
+    outcome: 'The history reads like a timeline: certain months belong to particular artists and albums, and the listening clock reveals a late-night bias.',
+    // EDIT ME: DETAIL STORY: replace bracketed prompts with your memories and decisions.
+    detailSections: [
+      { title: 'How this started', body: '[WRITE ME: What made you start tracking music, and when did the dashboard idea click?]' },
+      { title: 'From scrobbles to a dashboard', body: 'I collected Last.fm history, cleaned the scrobbles, and built R Shiny views for artists, albums, tracks, and listening over time.' },
+      { title: 'Why I kept it visual', body: '[WRITE ME: Explain why you removed ML and what the simpler charts helped you see.]' },
+      { title: 'What the data brought back', body: '[WRITE ME: One grounded observation about how your listening changed. Keep this personal, not dramatic.]' },
+      { title: 'If I made another version', body: '[WRITE ME: A small next step or design decision you would revisit.]' },
+    ],
+    detailImages: ['Last.fm dashboard overview', 'Favorite artist or listening-trend view'],
+    recruiter: {
+      problem: 'A long listening history is difficult to explore as raw scrobble data.',
+      contribution: 'Built the cleaning, aggregation, and R Shiny views for artists, albums, tracks, and time-based trends.',
+      result: 'Makes over 100,000 scrobbles explorable by month, revealing distinct artist-heavy eras and a late-night listening pattern.',
+    },
+    stack: ['R', 'Shiny', 'Last.fm API', 'Data visualization'],
+    visual: 'music',
+    imageSrc: portfolioImage('lastfm-overview.png'),
+    imageLabel: 'Last.fm listening dashboard overview',
+    github: 'https://github.com/tvarnnn/Last.fm-Project',
+    featured: true,
   },
   {
-    id: "finance-advisor",
-    title: "Finance Advisor",
-    bullets: [
-      "Parses raw bank statements into structured transaction data with automated categorization",
-      "Detects anomalies using statistical methods and Isolation Forest models",
-      "Uses LLM tool-calling to dynamically retrieve real financial data and prevent fabricated responses"
+    id: 'glasses',
+    title: 'Cyclops / Smart Glasses',
+    eyebrow: 'WEARABLE VISION / WORLD BUILDER',
+    homeHook: 'I wanted my glasses to remember where things were.',
+    homeNotes: ['Glasses → iPhone → GPU workstation at roughly 12 FPS', 'Real-device walks become saved, photo-backed worlds', 'Room coherence and post-walk latency are active work'],
+    homeAction: 'Step inside Cyclops',
+    intro: 'i wanted my glasses to remember where things were.',
+    why: 'I wanted to explore what useful memory could feel like when the camera is already on your face.',
+    built: 'A wearable-vision platform spanning Ray-Ban Meta capture, a SwiftUI iPhone relay, and a Windows Tower that runs vision cartridges.',
+    detail: 'The Tower handles frame transport, computer vision, and world-building. Object Memory currently records evidence for categories seen in a frame; it does not yet identify one physical object or know its room position.',
+    outcome: 'Real-device walks now produce saved, photo-backed worlds viewable on the phone. Connecting every room reliably and reducing the post-walk wait remain active work.',
+    detailSections: [
+      { title: 'The question', body: '[WRITE ME: Why did you want wearable memory, and what was the first thing you hoped the glasses could do?]' },
+      { title: 'Three devices, one loop', body: 'Ray-Ban Meta glasses capture first-person video. A SwiftUI iPhone app bridges the glasses and a Python/FastAPI Tower, where GPU-backed vision work and persistent data live.' },
+      { title: 'A platform of cartridges', body: 'World Builder, Object Memory, Document Memory, Scene Understanding, and the CV Lab share a modular Tower runtime. The design lets each experiment keep its own contract and state.' },
+      { title: 'What the prototype can say today', body: 'Physical walks produce saved photo-backed rooms viewable on the phone. Object Memory can answer category-level last-seen questions, while reliable instance identity, room coherence, and post-walk latency remain open work.' },
+      { title: 'What hardware taught me', body: '[WRITE ME: The most surprising constraint, failed assumption, or useful measurement from a real glasses test.]' },
+      { title: 'What I am trying next', body: '[WRITE ME: The next concrete experiment and what would count as success.]' },
     ],
-    overview:
-      "A local-first financial analysis system that converts raw bank statements into structured insights and enables grounded AI queries over real transaction data.",
-    problem:
-      "Personal finance tools either rely on manual tracking or generate generic advice without context. Raw bank data is messy, inconsistent, and difficult to analyze without a structured pipeline, and LLMs can produce misleading answers without access to real data.",
-    approach:
-      "Built a pipeline that parses PDF bank statements, cleans and categorizes transactions, and computes spending analytics. Combined statistical anomaly detection with machine learning (Isolation Forest). Instead of injecting static context, implemented a tool-calling architecture where the LLM dynamically retrieves only the necessary financial data per query, ensuring all responses are grounded in real user data.",
-    techStack: ["Python", "FastAPI", "SQLite", "pdfplumber", "scikit-learn", "NumPy", "Groq API", "React", "Recharts"],
-    github: "(coming soon)",
+    detailImages: ['Cyclops glasses and iPhone setup', 'World Builder room view', 'Capture-to-Tower architecture diagram'],
+    recruiter: {
+      problem: 'Turn wearable first-person capture into useful, persistent visual context.',
+      contribution: 'Built across the glasses/iPhone/Tower boundary, including frame transport, modular vision cartridges, and world-building work.',
+      result: 'A documented physical walk streamed at 11.92 FPS and produced a phone-viewable photographic room; room coherence and post-walk latency remain active work.',
+    },
+    stack: ['Swift', 'FastAPI', 'PyTorch', 'CUDA', 'Computer vision'],
+    visual: 'glasses',
+    imagePending: true,
+    imageLabel: 'Cyclops glasses photo or World Builder image',
+    github: 'https://github.com/tvarnnn/Cyclops-',
+    featured: true,
   },
   {
-    id: "computer-vision-system",
-    title: "Computer Vision System",
-    bullets: [
-      "Tracks people and objects over time using YOLOv8 and ByteTrack with persistent IDs",
-      "Extracts motion features and interaction events from pose estimation and object proximity",
-      "Learns behavior patterns via clustering and predicts actions (e.g., object pickup) in real time"
+    id: 'agent-platform',
+    title: 'Agent Platform / Gary',
+    status: 'in-development',
+    eyebrow: 'AGENT SYSTEMS / INFRASTRUCTURE',
+    homeHook: 'I wanted coding agents to be useful without letting the model become the system of record.',
+    homeNotes: ['One backend owns permissions and state', 'Planning works; coding handoff is under repair', 'VS Code, local models, and durable sessions'],
+    homeAction: 'Open the architecture notes',
+    intro: 'the model can suggest a move. the system still has to decide.',
+    why: 'Autonomous coding only gets interesting when the permission boundary and recovery story are real.',
+    built: 'A local-first coding-agent platform with a Python backend, VS Code client, and Planner, Coder, and Reviewer roles.',
+    detail: 'The backend owns permission checks, filesystem access, MCP calls, and SQLite session state. Thin clients request work but cannot widen their own authority.',
+    outcome: 'Planning is working well. A prior live run wrote a file and resumed after a restart, but current backend stability and the coder’s project targeting still need work.',
+    detailSections: [
+      { title: 'The problem I was chasing', body: 'A coding agent needs to work in a real repository while the application, not the model, controls file access, tool calls, and recoverable state.' },
+      { title: 'The backend is the authority', body: 'A Python backend evaluates permissions and routes tool calls. The VS Code extension and CLI are thin clients, so model output cannot directly decide what can be written or persisted.' },
+      { title: 'Planner, Coder, Reviewer', body: 'The workflow separates planning, implementation, and review roles inside a controlled state machine. A deterministic test failure remains a failure even if a model reviewer approves.' },
+      { title: 'A session should survive a crash', body: 'SQLite stores sessions, messages, plans, decisions, and checkpoints. The documented live workflow resumes after a backend restart.' },
+      { title: 'The tradeoff I chose', body: 'Keeping permissions and state in the backend adds coordination between clients and agent roles, but gives every tool call one place to be checked.' },
+      { title: 'What I would improve next', body: 'Repair backend stability and make the Coder consistently target the active project and files before retesting the full planning-to-implementation loop.' },
     ],
-    overview:
-      "A real-time computer vision system that models human-object interactions and learns behavioral patterns from video streams.",
-    problem:
-      "Object detection alone doesn’t capture behavior. Understanding how people interact with objects requires tracking, motion analysis, and temporal modeling across frames rather than isolated predictions.",
-    approach:
-      "Built a multi-stage pipeline combining detection (YOLOv8), tracking (ByteTrack), pose estimation, and motion feature extraction. Interaction events are logged and processed through a state machine, then clustered to identify recurring behavior patterns. A RandomForest model is trained on motion data to predict actions such as object pickup in real time.",
-    techStack: ["Python", "YOLOv8", "ByteTrack", "MediaPipe", "OpenCV", "CLIP", "scikit-learn"],
-    github: "(coming soon)",
+    detailImages: ['Gary in VS Code', 'Planner / Coder / Reviewer flow', 'Permission boundary diagram'],
+    recruiter: {
+      description: 'A local-first software engineering agent platform with separate Planner, Coder, and Reviewer roles, persistent sessions, permissioned tooling, and a VS Code client.',
+      statusNote: 'Planning works; I am repairing backend stability and how the Coder selects the project and files it should change.',
+      problem: 'Let coding agents operate on a real project without making model output the authority for writes or state.',
+      contribution: 'Solely designed and built the Python backend, Planner/Coder/Reviewer workflow, permissioned ToolGateway and filesystem sandbox, SQLite sessions, and VS Code client.',
+      result: 'Planning works; a previous run passed 1,100+ backend tests and resumed after restart. I am repairing backend stability and the Coder’s project/file targeting.',
+    },
+    stack: ['Python', 'FastAPI', 'SQLite', 'MCP', 'TypeScript', 'Ollama'],
+    visual: 'agent',
+    imageLabel: 'Gary VS Code view or architecture diagram',
+    github: 'https://github.com/tvarnnn/Gary',
+    featured: true,
   },
   {
-    id: "nexus-cli",
-    title: "NEXUS (CLI Agent)",
-    bullets: [
-      "LLM agent that dynamically discovers and executes tools over a local codebase.",
-      "Integrates multiple MCP servers (official filesystem server, Tavily search, and a local RAG server) into a unified tool interface.",
-      "Supports controlled execution modes (manual, confirmation, auto) and uses fusion retrieval (query rewrites + reciprocal rank fusion) for the local RAG server.",
+    id: 'finance-advisor',
+    title: 'Finance Advisor',
+    eyebrow: 'FINANCIAL DATA / AI TOOLS',
+    homeHook: 'I gave years of bank statements to my computer and asked it to explain my financial decisions.',
+    homeNotes: ['100+ statements and 4,000+ transactions processed', 'Transfers, categories, and anomalies', 'Questions answered with transaction tools'],
+    homeAction: 'See where the money went',
+    intro: 'a pile of statements turned into something I could actually ask questions about.',
+    why: 'I wanted a clearer view of spending than a folder of PDFs could give me.',
+    built: 'A React/FastAPI dashboard that parses bank statements, normalizes transactions, detects transfer pairs and anomalies, and shows spending patterns.',
+    detail: 'SQLite stores the records. Statistical checks and Isolation Forest flag anomalies; a Groq-backed assistant uses tools to retrieve transaction data for questions.',
+    outcome: 'Uploading a statement now runs the pipeline from parsing through categorization and analysis. It has processed 100+ statements and sorted 4,000+ transactions into queryable records.',
+    detailSections: [
+      { title: 'Why I opened the statements', body: '[WRITE ME: The real question you wanted answered when you started this project.]' },
+      { title: 'Making messy PDFs usable', body: 'The pipeline parses Capital One and Truist statements, normalizes merchants and categories, and detects transfer pairs so moving money does not look like spending twice.' },
+      { title: 'From records to questions', body: 'React presents the spending views, FastAPI serves the data, and the Groq-backed advisor calls tools for the transaction records relevant to a question. The AI path uses an external API.' },
+      { title: 'The tricky edge cases', body: '[WRITE ME: A parsing, transfer, categorization, or anomaly edge case that changed your approach.]' },
+      { title: 'Showing this without showing my bank account', body: '[WRITE ME: Your plan for synthetic or redacted demo data and the next improvement.]' },
     ],
-    overview:
-      "A command-line coding assistant built as part of a team project, using an agent loop to reason over tasks, execute tools, and iteratively refine results.",
-    problem:
-      "Most coding assistants generate suggestions but lack the ability to interact with real environments. Bridging reasoning with tool execution requires structured orchestration and safe integration with external tools.",
-    approach:
-      "Built an agent loop that alternates between reasoning, tool execution, and observation. Integrated multiple MCP servers — the official filesystem server, Tavily for external search, and a custom local RAG server backed by persistent ChromaDB — into a unified interface, enabling the agent to dynamically discover and invoke tools during execution while maintaining controlled interaction modes.",
-    techStack: ["Python", "Node.js", "Groq API", "Ollama", "MCP", "ChromaDB", "Tavily API"],
-    github: "https://github.com/David-Chan-Ho2/CLI-Coding-Assistant",
+    detailImages: ['Finance Advisor dashboard', 'Redacted transaction analysis', 'Statement-to-answer pipeline'],
+    recruiter: {
+      problem: 'Bank-statement PDFs are inconsistent and hard to analyze across accounts.',
+      contribution: 'Built PDF ingestion, transaction normalization, transfer detection, analytics, anomaly checks, and a React/FastAPI interface.',
+      result: 'Processed 100+ statements and 4,000+ transactions into queryable records and tool-grounded answers; screenshots are redacted to protect personal data.',
+    },
+    stack: ['Python', 'React', 'FastAPI', 'SQLite', 'Isolation Forest'],
+    visual: 'finance',
+    imageSrc: portfolioImage('finance-overview.png'),
+    imageLabel: 'Finance Advisor dashboard overview',
+    imageNote: '* sorry for the redaction, personal info :(',
+    featured: true,
   },
   {
-    id: "ml-visualizer",
-    title: "ML Visualizer",
-    bullets: [
-      "Interactive playground for exploring how machine learning models learn in real time",
-      "Visualizes decision boundaries, optimization paths, and training dynamics across algorithms",
-      "Includes multiple modules (loss landscapes, clustering, neural networks, RL) for hands-on experimentation"
+    id: 'ml-visualizer',
+    title: 'Gradience / ML Playground',
+    eyebrow: '05 / the rabbit hole',
+    homeHook: 'I wanted to see what the model was doing, not just read another diagram about it.',
+    homeNotes: ['Loss landscapes and optimizer paths', 'Decision boundaries, clustering, and overfitting', 'Small experiments you can actually poke at'],
+    homeAction: 'Play with the models',
+    intro: 'some ideas finally make sense when you can move the sliders.',
+    why: 'Static diagrams were not enough for the ML concepts I wanted to understand.',
+    built: 'Interactive visual tools for loss landscapes, optimization paths, decision boundaries, overfitting, clustering, neural networks, and reinforcement learning.',
+    detail: 'FastAPI and Gradio serve Python/NumPy simulations and Plotly views that let visitors change parameters and watch training behavior.',
+    outcome: 'Turns abstract training behavior into hands-on experiments.',
+    detailSections: [
+      { title: 'The reason I made it', body: '[WRITE ME: Which ML concept first made you wish for an interactive explanation?]' },
+      { title: 'A playground of experiments', body: 'The modules cover loss surfaces, optimizer paths, classifiers, overfitting, clustering, neural network training, and value iteration in a grid world.' },
+      { title: 'Making behavior visible', body: 'FastAPI and Gradio connect the controls to Python/NumPy simulations; Plotly turns the changing model state into views you can inspect.' },
+      { title: 'What surprised me', body: '[WRITE ME: One behavior you only noticed once you could interact with the simulation.]' },
+      { title: 'Next lesson to build', body: '[WRITE ME: A module or explanation you would add next.]' },
     ],
-    overview:
-      "ML Visualizer is an interactive playground for exploring how machine learning algorithms behave during training. Originally built to better understand concepts from my coursework, it evolved into a tool for experimenting with models and visualizing learning dynamics in real time.",
-    problem:
-      "Understanding how machine learning models learn is difficult from static diagrams or theory alone. Concepts like optimization, decision boundaries, and overfitting require visual, interactive feedback to build intuition.",
-    approach:
-      "Built a modular system using FastAPI and Gradio to serve interactive visualizations. Each module simulates a different ML concept — including optimization paths, clustering behavior, and neural network training — with real-time updates driven by NumPy-based implementations.",
-    techStack: ["Python", "FastAPI", "Gradio", "NumPy", "Plotly", "scikit-learn"],
-    github: "https://github.com/tvarnnn/Gradient_Visualizer",
-    demo: "https://huggingface.co/spaces/tvarn/ML-Visualizer",
+    detailImages: ['Loss landscape interaction', 'Decision boundary view', 'Clustering or RL module'],
+    recruiter: {
+      problem: 'Static course diagrams make training dynamics hard to reason about.',
+      contribution: 'Built interactive modules and simulations for optimization, classifiers, clustering, neural networks, and RL.',
+      result: 'A browser-based playground where users can change parameters and inspect model behavior.',
+    },
+    stack: ['Python', 'FastAPI', 'Gradio', 'NumPy', 'Plotly'],
+    visual: 'gradience',
+    imageLabel: 'Gradience interactive ML screenshot',
+    github: 'https://github.com/tvarnnn/Gradient_Visualizer',
+    demo: 'https://huggingface.co/spaces/tvarn/ML-Visualizer',
+    featured: false,
   },
   {
-    id: "notebooklm-clone",
-    title: "NotebookLM Clone",
-    bullets: [
-      "Document-grounded Q&A system with citation-backed responses over uploaded sources",
-      "Supports multi-format ingestion (PDF, TXT, URLs) with chunking and vector retrieval",
-      "Generates artifacts such as summaries, quizzes, and podcast-style transcripts"
-    ],
-    overview:
-      "A self-hostable document intelligence system inspired by NotebookLM. Users upload sources, organize them into notebooks, and interact through a chat interface with grounded, citation-backed responses.",
-    problem:
-      "Many document-based AI tools are locked to proprietary platforms or lack flexibility for custom workflows. Users need a system that can ingest diverse sources, maintain context, and generate reliable outputs with traceable citations.",
-    approach:
-      "Built a modular RAG pipeline that parses documents, chunks text with overlap, and stores embeddings in a vector database. Queries trigger retrieval of relevant chunks, which are passed to the LLM with strict grounding instructions to prevent hallucination. The system supports artifact generation (reports, quizzes, transcripts) and organizes data through a notebook-based storage structure.",
-    techStack: ["Python", "LangChain", "ChromaDB", "Sentence-Transformers", "Groq API", "Gradio"],
-    github: "https://github.com/tvarnnn/NotebookLM",
-    demo: "https://huggingface.co/spaces/Tvarn3/NotebookLM",
+    id: 'computer-vision-system', title: 'Computer Vision System',
+    intro: 'trying to understand what happens between frames.',
+    why: 'Object detection can name things in one frame; behavior takes memory over time.',
+    built: 'A pipeline for detection, tracking, pose, and interaction events in video.',
+    detail: 'Combines YOLOv8, ByteTrack, motion features, and models for patterns such as object pickup.',
+    stack: ['Python', 'YOLOv8', 'ByteTrack', 'OpenCV'], visual: 'archive',
   },
   {
-    id: "lastfm-dashboard",
-    title: "Last.fm Dashboard",
-    bullets: [
-      "Processes and analyzes large-scale listening data (~95k+ tracks) from the Last.fm API",
-      "Builds interactive dashboards for artist trends, listening patterns, and discovery timelines",
-      "Transforms raw scrobble data into structured insights with time-based aggregation"
-    ],
-    overview:
-      "An interactive data analysis dashboard for exploring personal listening habits using Last.fm data. Transforms raw scrobble history into structured insights across time, artists, and listening patterns.",
-    problem:
-      "Raw listening data from APIs is difficult to interpret without aggregation and visualization. Understanding patterns like listening habits, artist discovery, and trends over time requires structured analysis.",
-    approach:
-      "Fetched and cached scrobble data from the Last.fm API, then built a pipeline to clean and aggregate listening behavior. Developed a modular Shiny dashboard with views for artists, albums, tracks, and historical trends, enabling interactive drill-down exploration.",
-    techStack: ["R", "Shiny", "shinydashboard", "dplyr", "ggplot2", "plotly", "Last.fm API"],
-    github: "https://github.com/tvarnnn/Last.fm-Project",
+    id: 'nexus-cli', title: 'NEXUS CLI Agent',
+    intro: 'a coding assistant that can actually look around.',
+    why: 'Tool use is more useful when the assistant can discover what is available.',
+    built: 'A team-built CLI agent that discovers and runs tools across filesystem, search, and local retrieval servers.',
+    detail: 'Includes controlled execution modes and a local RAG workflow using fusion retrieval.',
+    stack: ['Node.js', 'MCP', 'ChromaDB', 'RAG'], visual: 'archive',
+    github: 'https://github.com/David-Chan-Ho2/CLI-Coding-Assistant',
   },
   {
-    id: "RL-Stock Trader",
-    title: "Reinforcement Learning Stock Trader",
-    bullets: [
-      "Built a multi-stock trading environment where a DQN agent learns portfolio-level allocation strategies",
-      "Designed a risk-adjusted reward function to balance returns and exposure across assets",
-      "Implemented stable training with replay buffers and target networks, evaluating performance via net worth over time",
-    ],
-    overview:
-    "A deep reinforcement learning system where a DQN agent learns trading strategies across multiple stocks. The agent interacts with a custom environment and is trained to maximize portfolio net worth over time.",
-    problem:
-    "Most RL trading projects operate on a single asset and optimize for short-term reward, which doesn’t reflect real portfolio behavior. Financial markets are noisy, non-stationary, and require balancing risk across multiple assets rather than maximizing isolated gains.",
-    approach:
-    "Built a custom multi-stock environment where the agent makes allocation decisions across assets at each timestep. Designed a reward function that incorporates both returns and risk exposure to encourage stable portfolio growth.\n" +
-        "\n" +
-        "Implemented a DQN agent with replay buffers and a target network to stabilize training. Evaluated performance using train/test splits and net worth progression over time.",
-    techStack: ["Python", "PyTorch (DQN)", "Gymnasium (environment)", "Pandas", "Matplotlib", "yFinance"],
-    github: "https://github.com/tvarnnn/RL-Stock-Trader",
+    id: 'notebooklm-clone', title: 'NotebookLM Clone',
+    intro: 'a place to ask better questions of your own documents.',
+    why: 'Documents are more useful when answers can point to their source.',
+    built: 'A source-grounded notebook for document Q&A and generated study artifacts.',
+    detail: 'Parses and chunks sources, retrieves relevant passages, and produces answers with traceable citations.',
+    stack: ['Python', 'LangChain', 'ChromaDB', 'Gradio'], visual: 'archive',
+    github: 'https://github.com/tvarnnn/NotebookLM',
+    demo: 'https://huggingface.co/spaces/Tvarn3/NotebookLM',
   },
   {
-    id: "mdm-advanced-rag",
-    title: "MDM Advanced RAG (Product Attribute Extraction)",
-    bullets: [
-      "Multi-agent LLM framework extracts structured product attributes (dimensions, electrical specs, materials, performance) from ~5,000 technical spec documents across PDF, DOCX, Excel, and HTML",
-      "Hybrid retrieval fuses dense (Qdrant ANN) and sparse (BM25) search via Reciprocal Rank Fusion, then reranks with a cross-encoder",
-      "Routes extracted records through a Streamlit data-steward review UI (approve/edit/reject) before exporting PIM-ready CSV/JSON",
-    ],
-    overview:
-      "An Advanced RAG pipeline built as part of a team project that ingests product specification documents in mixed formats and extracts structured technical attributes using a multi-agent LLM framework, routing results through a human review workflow before export to PIM/e-commerce systems.",
-    problem:
-      "Product technical specifications arrive in inconsistent formats across thousands of documents. Manually extracting structured attributes like dimensions, electrical ratings, and compliance certifications doesn't scale, and naive LLM extraction risks inaccurate or unverifiable output without a review step.",
-    approach:
-      "Built a multi-format ingestion pipeline (pdfplumber, python-docx, openpyxl, BeautifulSoup) that chunks and embeds documents into a Qdrant vector store. Implemented hybrid retrieval — dense vector search fused with BM25 sparse search via Reciprocal Rank Fusion, then reranked with a cross-encoder — plus LLM query decomposition for the RAG chain. A five-agent extraction framework (identifiers, dimensions, electrical, materials, performance) runs per document in parallel and merges results into a validated ProductRecord, using the instructor library to enforce structured Claude output. Extractions are checkpointed to SQLite for resumable batch processing across the full document set, then routed through a Streamlit review UI where data stewards approve, edit, or reject records before exporting flat CSV/JSON for PIM import.",
-    techStack: ["Python", "Claude API", "OpenAI (embeddings)", "Qdrant", "instructor", "rank-bm25", "flashrank", "Streamlit"],
-    github: "https://github.com/David-Chan-Ho2/MDM-Advanced-RAG",
-  }
-];
+    id: 'RL-Stock Trader', title: 'RL Stock Trader',
+    intro: 'teaching an agent to think in portfolios.',
+    why: 'Single-stock decisions miss the trade-offs in a portfolio.',
+    built: 'A multi-stock trading environment and DQN agent with replay buffers and target networks.',
+    detail: 'Explores allocation strategies and risk-adjusted rewards using historical data.',
+    stack: ['Python', 'PyTorch', 'Gymnasium'], visual: 'archive',
+    github: 'https://github.com/tvarnnn/RL-Stock-Trader',
+  },
+  {
+    id: 'mdm-advanced-rag', title: 'Advanced RAG for Product Data',
+    intro: 'making a lot of messy documents answer one clear question.',
+    why: 'Product specifications arrive in too many formats to compare by hand.',
+    built: 'A team-built retrieval and extraction workflow for technical product attributes with a human review step.',
+    detail: 'Combines multi-format ingestion, hybrid retrieval, validated extraction, and a data-steward review interface.',
+    stack: ['Python', 'Qdrant', 'RAG', 'Streamlit'], visual: 'archive',
+    github: 'https://github.com/David-Chan-Ho2/MDM-Advanced-RAG',
+  },
+]
+
+const featuredOrder = ['glasses', 'agent-platform', 'finance-advisor', 'lastfm-dashboard']
+export const featuredProjects = featuredOrder.map((id) => projects.find((project) => project.id === id))
+
+export const recruiterProjects = featuredProjects

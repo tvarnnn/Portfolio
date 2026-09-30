@@ -15,8 +15,8 @@ dist/
 # misc
 .DS_Store
 venv/
-public/resume.pdf
 
 # editor
 .idea/
 .vscode/
+.worktrees/
